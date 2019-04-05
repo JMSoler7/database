@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+
+  node:
+    build:
+      context: .
+      dockerfile: Dockerfile-node
+    volumes:
+      - .:/app
+
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile-django
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/app
+    environment:
+      - DJANGO_SETTINGS_MODULE=database.settings.development
+      - PYTHONUNBUFFERED=1
+    command: python3 ./manage.py runserver 0.0.0.0:8000

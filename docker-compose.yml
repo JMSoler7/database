@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    ports:
+      - "54320:5432"
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+
+
+  psql:
+    image: postgres
+    depends_on:
+      - db
+    environment:
+      - PGUSER=docker
+      - PGPASSWORD=docker
+      - PGHOST=db
+    command: psql
+
+
+  node:
+    build:
+      context: .
+      dockerfile: Dockerfile-node
+    volumes:
+      - ./:/app
+    ports:
+      - "3000:3000"
+    command: bash -c "npm install --no-audit && npm run serve"
+
+
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile-django
+    depends_on:
+      - db
+      - node
+    volumes:
+      - ./backend:/app
+    env_file:
+      - ./backend/.env
+    environment:
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8000:8000"
+    command: python ./manage.py runserver 0.0.0.0:8000

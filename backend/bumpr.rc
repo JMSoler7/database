@@ -1,0 +1,7 @@
+[bumpr]
+regex = \s*(__version__)\s*=\s*(\'|")(?P<version>.+?)(\'|")
+file = ./database/__init__.py
+verbose = True
+
+[bump]
+unsuffix = true

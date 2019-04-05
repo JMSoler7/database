@@ -1,0 +1,9 @@
+FROM node:10
+
+ENV APPDIR=/app/frontend
+
+RUN mkdir -p $APPDIR
+
+WORKDIR $APPDIR
+
+ADD ./frontend $APPDIR

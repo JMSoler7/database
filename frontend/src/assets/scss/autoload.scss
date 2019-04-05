@@ -1,0 +1,15 @@
+@charset "utf-8";
+
+/**
+ * The file gets automagically loaded by Webpack in `vue.config.js`.
+
+ * VERY IMPORTANT: this file should output no compiled CSS to prevent code
+ * duplication and bloating. This file gets loaded with every .vue component,
+ * so any compiled CSS would be repeated **for every component**.
+ */
+
+@import "~normandy-css/scss/1-Settings/main";
+@import "1-Settings/main";
+
+@import "~normandy-css/scss/2-Tools/main";
+@import "2-Tools/main";

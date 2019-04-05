@@ -1,0 +1,9 @@
+include LICENSE
+include README.md
+
+include database/webpack-stats-prod.json
+
+graft database/static
+graft database/dist
+graft database/templates
+graft database/migrations

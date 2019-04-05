@@ -1,0 +1,10 @@
+FROM python:3.6
+
+ENV APPDIR=/app
+
+RUN apt-get update && apt-get install -y gettext libgettextpo-dev
+
+WORKDIR $APPDIR
+ADD ./backend $APPDIR
+
+RUN pip install -r requirements-dev.txt
